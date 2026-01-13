@@ -113,11 +113,19 @@ export function setupPersistence(store: {
 }) {
   let timeout: ReturnType<typeof setTimeout> | null = null;
 
-  store.subscribe(() => {
+  const unsubscribe = store.subscribe(() => {
     if (timeout) return;
     timeout = setTimeout(() => {
       timeout = null;
       savePersistedState(store.getState());
     }, 250);
   });
+
+  return () => {
+    if (timeout) {
+      clearTimeout(timeout);
+      timeout = null;
+    }
+    unsubscribe();
+  };
 }

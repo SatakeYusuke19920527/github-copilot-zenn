@@ -52,8 +52,6 @@ function buildUnsplashImageUrl(seed: string) {
   return UNSPLASH_IMAGE_URLS[index];
 }
 
-const now = new Date().toISOString();
-
 const initialState: DiaryState = {
   diaries: [
     {
@@ -62,8 +60,8 @@ const initialState: DiaryState = {
       content:
         'これはUI確認用のダミーデータです。右下の + から新規作成できます。',
       imageUrl: buildUnsplashImageUrl('demo'),
-      createdAt: now,
-      updatedAt: now,
+      createdAt: '2024-01-01T00:00:00.000Z',
+      updatedAt: '2024-01-01T00:00:00.000Z',
     },
   ],
   selectedId: null,

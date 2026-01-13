@@ -71,6 +71,13 @@ export const diarySlice = createSlice({
   name: 'diary',
   initialState,
   reducers: {
+    hydrateDiaryState(
+      state,
+      action: PayloadAction<{ diaries: Diary[]; selectedId: string | null }>
+    ) {
+      state.diaries = action.payload.diaries;
+      state.selectedId = action.payload.selectedId;
+    },
     addDiary: {
       reducer(state, action: PayloadAction<Diary>) {
         state.diaries.unshift(action.payload);
@@ -112,5 +119,6 @@ export const diarySlice = createSlice({
   },
 });
 
-export const { addDiary, updateDiary, deleteDiary } = diarySlice.actions;
+export const { hydrateDiaryState, addDiary, updateDiary, deleteDiary } =
+  diarySlice.actions;
 export default diarySlice.reducer;

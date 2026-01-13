@@ -14,15 +14,12 @@ import {
 import type { Diary } from '@/features/diary/diarySlice';
 
 function formatDate(iso: string) {
-  const date = new Date(iso);
-  if (Number.isNaN(date.getTime())) return iso;
-  return date.toLocaleString('ja-JP', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  const parts = iso.split('T');
+  if (parts.length < 2) return iso;
+  const ymd = parts[0].replaceAll('-', '/');
+  const hhmm = parts[1].slice(0, 5);
+  if (!ymd || hhmm.length < 4) return iso;
+  return `${ymd} ${hhmm}`;
 }
 
 export function DiaryCard({
